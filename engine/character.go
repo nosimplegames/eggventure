@@ -19,8 +19,9 @@ const (
 type Character struct {
 	entities.Sprite
 
-	FSM  IFSM[*Character]
-	Body DynamicBody
+	FSM           IFSM[*Character]
+	Body          DynamicBody
+	CollisionMask string
 
 	IdleTexture    render.Texture
 	FallingTexture render.Texture
@@ -55,16 +56,17 @@ func (character *Character) Update() {
 	character.Move(character.Body.Speed)
 }
 
-func (character *Character) GetCollisionMask() string {
-	return "character"
+func (character Character) GetCollisionMask() string {
+	return character.CollisionMask
 }
 
-func (character *Character) CanCollide() bool {
+func (character Character) CanCollide() bool {
 	return true
 }
 
-func (character *Character) CanCollideWith(collisionMask string) bool {
-	return true
+func (character Character) CanCollideWith(collisionMask string) bool {
+	return collisionMask == "floor" ||
+		collisionMask == "wall"
 }
 
 func (character *Character) OnCollision(collision physics.Collision) {
@@ -102,13 +104,6 @@ type CharacterFactory struct {
 	FallingTexture   render.Texture
 	JumpingTexture   render.Texture
 	WalkingAnimation core.IAnimation
-}
-
-func (factory CharacterFactory) Create() *Character {
-	character := &Character{}
-	factory.Init(character)
-
-	return character
 }
 
 func (factory CharacterFactory) Init(character *Character) {

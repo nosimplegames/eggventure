@@ -12,8 +12,20 @@ type Textures struct {
 	FallingEgg render.Texture
 	JumpingEgg render.Texture
 
-	WalkingEggAnimation  render.Texture
-	StopFallingAnimation render.Texture
+	WalkingEggAnimation     render.Texture
+	StopFallingEggAnimation render.Texture
+
+	Magnum      render.Texture
+	MagnumAmmo  render.Texture
+	MagnumItem  render.Texture
+	MagnumFlash render.Texture
+
+	ActionButtonAnimation render.Texture
+
+	PlayerBar    render.Texture
+	EggCharacter render.Texture
+	FilledHeart  render.Texture
+	EmptyHeart   render.Texture
 }
 
 var textures *Textures = nil
@@ -29,7 +41,19 @@ func GetTextures() *Textures {
 		textures.JumpingEgg = assets.LoadTexture(jumpingEgg)
 
 		textures.WalkingEggAnimation = assets.LoadTexture(walkingEggAnimation)
-		textures.StopFallingAnimation = assets.LoadTexture(stopFallingEggAnimation)
+		textures.StopFallingEggAnimation = assets.LoadTexture(stopFallingEggAnimation)
+
+		textures.Magnum = assets.LoadTexture(magnum)
+		textures.MagnumAmmo = assets.LoadTexture(magnumAmmo)
+		textures.MagnumItem = assets.LoadTexture(magnumItem)
+		textures.MagnumFlash = assets.LoadTexture(magnumFlash)
+
+		textures.ActionButtonAnimation = assets.LoadTexture(actionButtonAnimation)
+
+		textures.PlayerBar = assets.LoadTexture(playerBar)
+		textures.EggCharacter = assets.LoadTexture(eggCharacter)
+		textures.EmptyHeart = assets.LoadTexture(emptyHeart)
+		textures.FilledHeart = assets.LoadTexture(filledHeart)
 	}
 
 	return textures

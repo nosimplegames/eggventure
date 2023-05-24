@@ -8,12 +8,20 @@ import (
 )
 
 type Player struct {
-	engine.Character
+	EggCharacter
 }
 
 func (player *Player) HandleInput() {
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 		player.SetState(engine.Jumping)
+	}
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyJ) {
+		player.Interact()
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyK) {
+		player.Shoot()
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyD) {
@@ -32,7 +40,9 @@ type PlayerFactory struct {
 
 func (factory PlayerFactory) Create() *Player {
 	player := &Player{}
-	EggCharacterFactory{}.Init(&player.Character)
+	EggCharacterFactory{}.Init(&player.EggCharacter)
+
+	player.CollisionMask = "player"
 	player.SetPosition(res.GameSize.By(0.5))
 
 	return player

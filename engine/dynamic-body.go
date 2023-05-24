@@ -31,9 +31,9 @@ func (body *DynamicBody) Update() {
 	case NoMoving:
 		body.Speed.X = 0
 	case MovingDirectionLeft:
-		body.Speed.X = -54 * utils.FrameTime
+		body.Speed.X = -69.9 * utils.FrameTime
 	case MovingDirectionRight:
-		body.Speed.X = 54 * utils.FrameTime
+		body.Speed.X = 69.9 * utils.FrameTime
 	}
 }
 

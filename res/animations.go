@@ -7,7 +7,9 @@ import (
 )
 
 type Animations struct {
-	WalkingAnimation core.IAnimation
+	EggWalkingAnimation core.IAnimation
+
+	ActionButtonAnimation core.IAnimation
 }
 
 var animations *Animations = nil
@@ -19,12 +21,22 @@ func GetAnimations() *Animations {
 		textures := GetTextures()
 
 		animations = &Animations{}
-		animations.WalkingAnimation = nsanimations.SpriteAnimationFactory{
+		animations.EggWalkingAnimation = nsanimations.SpriteAnimationFactory{
 			Texture:       textures.WalkingEggAnimation,
 			FrameDuration: 0.1,
 			FrameSize: math.Vector{
 				X: 16,
 				Y: 16,
+			},
+			LoopCount: nsanimations.AnimationInfiniteLoop,
+		}.Create(nil)
+
+		animations.ActionButtonAnimation = nsanimations.SpriteAnimationFactory{
+			Texture:       textures.ActionButtonAnimation,
+			FrameDuration: 0.3,
+			FrameSize: math.Vector{
+				X: 11,
+				Y: 12,
 			},
 			LoopCount: nsanimations.AnimationInfiniteLoop,
 		}.Create(nil)
