@@ -9,6 +9,8 @@ import (
 type Animations struct {
 	EggWalkingAnimation core.IAnimation
 
+	MagnumExplosionAnimation core.IAnimation
+
 	ActionButtonAnimation core.IAnimation
 }
 
@@ -29,6 +31,15 @@ func GetAnimations() *Animations {
 				Y: 16,
 			},
 			LoopCount: nsanimations.AnimationInfiniteLoop,
+		}.Create(nil)
+
+		animations.MagnumExplosionAnimation = nsanimations.SpriteAnimationFactory{
+			Texture:       textures.MagnumExplosionAnimation,
+			FrameDuration: 0.015,
+			FrameSize: math.Vector{
+				X: 10,
+				Y: 6,
+			},
 		}.Create(nil)
 
 		animations.ActionButtonAnimation = nsanimations.SpriteAnimationFactory{

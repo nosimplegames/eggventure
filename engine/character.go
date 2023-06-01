@@ -49,6 +49,10 @@ func (character *Character) SetMovingDirection(direction MovingDirection) {
 	}
 }
 
+func (character Character) GetMovingDirection() MovingDirection {
+	return character.Body.MovingDirection
+}
+
 func (character *Character) Update() {
 	character.Body.Update()
 	character.FSM.Update()

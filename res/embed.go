@@ -27,6 +27,8 @@ var (
 	magnumAmmo []byte
 	//go:embed magnum-flash.png
 	magnumFlash []byte
+	//go:embed magnum-explosion-animation.png
+	magnumExplosionAnimation []byte
 
 	//go:embed action-button-animation.png
 	actionButtonAnimation []byte

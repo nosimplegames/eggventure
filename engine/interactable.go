@@ -45,7 +45,10 @@ func (factory InteractableFactory) Init(item *Interactable) {
 	factory.initItem(item)
 
 	interactionEntity := factory.createInteractionEntity()
-	item.AddChild(interactionEntity)
+	core.EntityAdder{
+		Parent: item,
+		Child:  interactionEntity,
+	}.Add()
 	item.interactionEntity = interactionEntity
 }
 
@@ -56,9 +59,10 @@ func (factory InteractableFactory) initItem(item *Interactable) {
 		Y: itemTextureSize.Y,
 	}
 
-	item.SetTexture(factory.ItemTexture)
-	item.Size = interactionArea
-	item.SetOriginCenter()
+	entities.SpriteFactory{
+		Texture: factory.ItemTexture,
+	}.Init(&item.Sprite)
+	item.SetSize(interactionArea)
 }
 
 func (factory InteractableFactory) createInteractionEntity() core.IEntity {

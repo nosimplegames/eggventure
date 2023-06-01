@@ -3,12 +3,12 @@ package hud
 import (
 	"github.com/nosimplegames/eggventure/engine"
 	"github.com/nosimplegames/eggventure/res"
+	"github.com/nosimplegames/ns-framework/core"
 	"github.com/nosimplegames/ns-framework/math"
-	"github.com/nosimplegames/ns-framework/ui"
 )
 
 type HUD struct {
-	ui.Container
+	core.Entity
 
 	statusBar engine.ICharacterStatusBar
 }
@@ -23,12 +23,15 @@ type HUDFactory struct {
 
 func (factory HUDFactory) Create() *HUD {
 	hud := &HUD{}
-	hud.Padding = res.HUDPadding
-	hud.Layout = &ui.FlexLayout{}
-	hud.Size = factory.Size
+	hud.SetSize(factory.Size)
+	hud.SetOrigin(factory.Size.By(0.5))
 
 	playerStatusBar := PlayerStatusBarFactory{}.Create()
-	hud.AddChild(playerStatusBar)
+	playerStatusBar.SetPosition(res.PlayerStatusBarPosition)
+	core.EntityAdder{
+		Parent: hud,
+		Child:  playerStatusBar,
+	}.Add()
 	hud.statusBar = playerStatusBar
 
 	return hud

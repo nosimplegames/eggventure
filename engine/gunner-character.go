@@ -10,12 +10,16 @@ type GunnerCharacter struct {
 
 	weapon            *Weapon
 	weaponAnchorPoint math.Vector
+	aimingDirection   MovingDirection
 }
 
 func (character *GunnerCharacter) PickUpWeapon(weapon *Weapon) {
 	character.weapon = weapon
 	weapon.SetPosition(character.weaponAnchorPoint)
-	character.AddChild(weapon)
+	core.EntityAdder{
+		Parent: character,
+		Child:  weapon,
+	}.Add()
 
 	character.reportWeaponInfo()
 }
@@ -27,7 +31,7 @@ func (character GunnerCharacter) Shoot() {
 		return
 	}
 
-	character.weapon.Shoot()
+	character.weapon.Shoot(character.aimingDirection)
 }
 
 func (character *GunnerCharacter) SetStatusBar(statusBar ICharacterStatusBar) {
@@ -45,6 +49,18 @@ func (character GunnerCharacter) reportWeaponInfo() {
 
 	characterStatusBar.SetAmmoTexture(character.weapon.AmmoTexture)
 	characterStatusBar.SetAmmo(character.weapon.Ammo)
+}
+
+func (character *GunnerCharacter) SetMovingDirection(direction MovingDirection) {
+	character.LivingCharacter.SetMovingDirection(direction)
+
+	isValidAimingDirection := direction != NoMoving
+
+	if !isValidAimingDirection {
+		return
+	}
+
+	character.aimingDirection = direction
 }
 
 type GunnerCharacterFactory struct {

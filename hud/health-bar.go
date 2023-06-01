@@ -2,57 +2,90 @@ package hud
 
 import (
 	"github.com/nosimplegames/eggventure/res"
-	"github.com/nosimplegames/ns-framework/entities"
+	"github.com/nosimplegames/ns-framework/core"
 	"github.com/nosimplegames/ns-framework/math"
-	"github.com/nosimplegames/ns-framework/render"
-	"github.com/nosimplegames/ns-framework/ui"
 )
 
 type HealthBar struct {
-	ui.Container
-
-	heartTexture      render.Texture
-	emptyHeartTexture render.Texture
+	core.Entity
 
 	health    int
 	maxHealth int
+	hearts    []*Heart
 }
 
 func (bar *HealthBar) SetHealth(health int) {
 	bar.health = health
-	bar.updateHearts()
+
+	needToCapHealth := bar.health > bar.maxHealth
+
+	if needToCapHealth {
+		bar.health = bar.maxHealth
+	}
+
+	bar.emptyHearts()
+	bar.fillHearts(bar.health)
 }
 
 func (bar *HealthBar) SetMaxHealth(maxHealth int) {
-	bar.maxHealth = maxHealth
-	bar.updateHearts()
-}
+	needToCreateHearts := bar.maxHealth < maxHealth
 
-func (bar *HealthBar) updateHearts() {
-	bar.RemoveChildren()
-	bar.createHearts(bar.health)
-	bar.createEmtpyHearts(bar.maxHealth - bar.health)
-}
-
-func (bar *HealthBar) createHearts(health int) {
-	for i := 0; i < health; i++ {
-		filledHeart := entities.SpriteFactory{
-			Texture: bar.heartTexture,
-		}.Create()
-
-		bar.AddChild(filledHeart)
+	if needToCreateHearts {
+		bar.createHearts(maxHealth - bar.maxHealth)
+		bar.maxHealth = maxHealth
 	}
 }
 
-func (bar *HealthBar) createEmtpyHearts(emptyHearts int) {
-	for i := 0; i < emptyHearts; i++ {
-		filledHeart := entities.SpriteFactory{
-			Texture: bar.emptyHeartTexture,
-		}.Create()
-
-		bar.AddChild(filledHeart)
+func (bar HealthBar) emptyHearts() {
+	for _, heart := range bar.hearts {
+		heart.Empty()
 	}
 }
+
+func (bar HealthBar) fillHearts(count int) {
+	for i := 0; i < count; i++ {
+		heart := bar.hearts[i]
+		heart.Fill()
+	}
+}
+
+// func (bar *HealthBar) updateHearts() {
+// 	bar.RemoveChildren()
+// 	bar.createHearts(bar.health)
+// 	bar.createEmtpyHearts(bar.maxHealth - bar.health)
+// }
+
+func (bar *HealthBar) createHearts(count int) {
+	heartWidth := (res.HeartSize.X + res.HeartMargin)
+	heartPosition := math.Vector{
+		X: float64(len(bar.hearts)) * heartWidth,
+	}
+
+	for i := 0; i < count; i++ {
+		heart := HeartFactory{
+			IsHeartEmpty: true,
+		}.Create()
+
+		heart.SetPosition(heartPosition)
+		heartPosition.X += heartWidth
+
+		bar.hearts = append(bar.hearts, heart)
+		core.EntityAdder{
+			Parent: bar,
+			Child:  heart,
+		}.Add()
+	}
+}
+
+// func (bar *HealthBar) createEmtpyHearts(emptyHearts int) {
+// 	for i := 0; i < emptyHearts; i++ {
+// 		filledHeart := entities.SpriteFactory{
+// 			Texture: bar.emptyHeartTexture,
+// 		}.Create()
+
+// 		bar.AddChild(filledHeart)
+// 	}
+// }
 
 type HealthBarFactory struct {
 	MaxHealth int
@@ -61,19 +94,16 @@ type HealthBarFactory struct {
 
 func (factory HealthBarFactory) Create() *HealthBar {
 	bar := &HealthBar{}
+	bar.SetMaxHealth(factory.MaxHealth)
+	bar.SetHealth(factory.Health)
 
-	bar.Layout = &ui.FlexLayout{
-		Gap: math.Vector{X: res.HealthBarGap},
-	}
+	// bar.Layout = &ui.FlexLayout{
+	// 	Gap: math.Vector{X: res.HealthBarGap},
+	// }
 
-	textures := res.GetTextures()
-	bar.heartTexture = textures.FilledHeart
-	bar.emptyHeartTexture = textures.EmptyHeart
-	bar.health = factory.Health
-	bar.maxHealth = factory.MaxHealth
-	bar.updateHearts()
-
-	bar.UseContentAsSize()
+	// bar.health = factory.Health
+	// bar.maxHealth = factory.MaxHealth
+	// bar.updateHearts()
 
 	return bar
 }

@@ -11,6 +11,7 @@ type WeaponItemsFactory struct {
 
 func (factory WeaponItemsFactory) CreateMagnum() *engine.WeaponItem {
 	textures := res.GetTextures()
+	animations := res.GetAnimations()
 
 	item := engine.WeaponItemFactory{
 		WeaponFactory: engine.WeaponFactory{
@@ -22,11 +23,12 @@ func (factory WeaponItemsFactory) CreateMagnum() *engine.WeaponItem {
 				X: 15,
 				Y: 6,
 			},
+			AmmoExplosionAnimation: animations.MagnumExplosionAnimation,
 		},
 
 		InteractableFactory: engine.InteractableFactory{
 			ItemTexture:                textures.MagnumItem,
-			InteractionButtonAnimation: res.GetAnimations().ActionButtonAnimation,
+			InteractionButtonAnimation: animations.ActionButtonAnimation,
 			InteractionButtonSize:      res.InteractionButtonSize,
 			InteractionButtonSpace:     res.InteractionButtonSpace,
 		},

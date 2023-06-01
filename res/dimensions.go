@@ -38,9 +38,35 @@ var (
 	}
 	InteractionButtonSpace = 20.0
 
+	PlayerStatusBarPosition = math.Vector{
+		X: 54,
+		Y: 14,
+	}
+	CharacterIconPosition = math.Vector{
+		X: 12,
+		Y: 9,
+	}
+	HealthBarPosition = math.Vector{
+		X: 28,
+		Y: 5,
+	}
+	WeaponStatusBarPosition = math.Vector{
+		X: 28,
+		Y: 13,
+	}
+	HeartSize = math.Vector{
+		X: 6,
+		Y: 6,
+	}
+	HeartMargin = 1.0
+
 	HUDPadding                      = ui.SamePadding(5)
 	PlayerBarPadding                = ui.HorizontalVerticalPadding(4, 3)
 	HealthBarGap                    = 1.0
 	SpaceBetweenHealthAndWeaponBars = 2.0
 	WeaponStatusBarGap              = 2.0
+	AmmoTextureSize                 = math.Vector{
+		X: 10,
+		Y: 6,
+	}
 )

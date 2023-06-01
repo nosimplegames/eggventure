@@ -19,6 +19,8 @@ func main() {
 	}
 	world := physics.GetWorld()
 
+	scene := &core.Scene{}
+	eggventure.PushScene(scene)
 	textures := res.GetTextures()
 
 	tileMap := entities.TileMapFactory{
@@ -48,28 +50,34 @@ func main() {
 		},
 	}.Create()
 	tileMap.SetPosition(res.GameSize.By(0.5))
-	eggventure.AddChild(tileMap)
 
 	floorPosition := 180.0 - res.TileSize.Y
 
 	weaponItem := game.WeaponItemsFactory{}.CreateMagnum()
 	weaponItem.SetPosition(math.Vector{
 		X: res.GameSize.X * 0.5,
-		Y: floorPosition - weaponItem.Size.Y*0.5,
+		Y: floorPosition - weaponItem.GetSize().Y*0.5,
 	})
-	eggventure.AddChild(weaponItem)
 	world.AddCollisinable(weaponItem)
 
 	player := game.PlayerFactory{}.Create()
-	eggventure.AddChild(player)
 	world.AddCollisinable(player)
 
 	hudEntity := hud.HUDFactory{
 		Size: res.GameSize,
 	}.Create()
 	hudEntity.SetPosition(res.GameSize.By(0.5))
-	eggventure.AddChild(hudEntity)
 	player.SetStatusBar(hudEntity.GetStatusBar())
+
+	core.EntityAdder{
+		Parent: scene,
+		Children: core.EntityChildren{
+			tileMap,
+			weaponItem,
+			player,
+			hudEntity,
+		},
+	}.Add()
 
 	floor := &engine.StaticBody{
 		Size: math.Vector{

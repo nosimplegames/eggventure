@@ -34,6 +34,6 @@ func (factory EggCharacterFactory) Init(egg *EggCharacter) {
 	egg.CollisionMask = "character"
 
 	egg.FallingTexture = textures.FallingEgg
-	egg.Size = res.EggSize
+	egg.SetSize(res.EggSize)
 	egg.SetOriginCenter()
 }
