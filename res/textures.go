@@ -15,6 +15,12 @@ type Textures struct {
 	WalkingEggAnimation     render.Texture
 	StopFallingEggAnimation render.Texture
 
+	GruntClosed           render.Texture
+	GruntWalkingAnimation render.Texture
+	GruntLowDamage        render.Texture
+	GruntMediumDamage     render.Texture
+	GruntHighDamage       render.Texture
+
 	Magnum                   render.Texture
 	MagnumAmmo               render.Texture
 	MagnumItem               render.Texture
@@ -43,6 +49,12 @@ func GetTextures() *Textures {
 
 		textures.WalkingEggAnimation = assets.LoadTexture(walkingEggAnimation)
 		textures.StopFallingEggAnimation = assets.LoadTexture(stopFallingEggAnimation)
+
+		textures.GruntClosed = assets.LoadTexture(gruntClosed)
+		textures.GruntWalkingAnimation = assets.LoadTexture(gruntWalkingAnimation)
+		textures.GruntLowDamage = assets.LoadTexture(gruntLowDamage)
+		textures.GruntMediumDamage = assets.LoadTexture(gruntMediumDamage)
+		textures.GruntHighDamage = assets.LoadTexture(gruntHighDamage)
 
 		textures.Magnum = assets.LoadTexture(magnum)
 		textures.MagnumAmmo = assets.LoadTexture(magnumAmmo)

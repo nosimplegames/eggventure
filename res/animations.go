@@ -9,6 +9,8 @@ import (
 type Animations struct {
 	EggWalkingAnimation core.IAnimation
 
+	GruntWalkingAnimation core.IAnimation
+
 	MagnumExplosionAnimation core.IAnimation
 
 	ActionButtonAnimation core.IAnimation
@@ -26,11 +28,15 @@ func GetAnimations() *Animations {
 		animations.EggWalkingAnimation = nsanimations.SpriteAnimationFactory{
 			Texture:       textures.WalkingEggAnimation,
 			FrameDuration: 0.1,
-			FrameSize: math.Vector{
-				X: 16,
-				Y: 16,
-			},
-			LoopCount: nsanimations.AnimationInfiniteLoop,
+			FrameSize:     EggAnimationFrameSize,
+			LoopCount:     nsanimations.AnimationInfiniteLoop,
+		}.Create(nil)
+
+		animations.GruntWalkingAnimation = nsanimations.SpriteAnimationFactory{
+			Texture:       textures.GruntWalkingAnimation,
+			FrameDuration: 0.1,
+			FrameSize:     GruntAnimationFrameSize,
+			LoopCount:     nsanimations.AnimationInfiniteLoop,
 		}.Create(nil)
 
 		animations.MagnumExplosionAnimation = nsanimations.SpriteAnimationFactory{

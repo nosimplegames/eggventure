@@ -32,6 +32,19 @@ var (
 		Y: 9,
 	}
 
+	GruntClosedSize = math.Vector{
+		X: 16,
+		Y: 16,
+	}
+	GruntBoxDetector = math.Vector{
+		X: 200,
+		Y: 50,
+	}
+	GruntAnimationFrameSize = math.Vector{
+		X: 16,
+		Y: 16,
+	}
+
 	InteractionButtonSize = math.Vector{
 		X: 11,
 		Y: 12,

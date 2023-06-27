@@ -69,11 +69,15 @@ func main() {
 	hudEntity.SetPosition(res.GameSize.By(0.5))
 	player.SetStatusBar(hudEntity.GetStatusBar())
 
+	grunt := game.GruntFactory{}.Create()
+	world.AddCollisinable(grunt)
+
 	core.EntityAdder{
 		Parent: scene,
 		Children: core.EntityChildren{
 			tileMap,
 			weaponItem,
+			grunt,
 			player,
 			hudEntity,
 		},

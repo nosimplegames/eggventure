@@ -28,7 +28,7 @@ func (body StaticBody) CanCollide() bool {
 }
 
 func (body StaticBody) CanCollideWith(collisionMask string) bool {
-	return collisionMask != body.CollisionMask
+	return false
 }
 
 func (body StaticBody) OnCollision(collision physics.Collision) {

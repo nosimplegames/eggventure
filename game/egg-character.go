@@ -18,8 +18,8 @@ func (factory EggCharacterFactory) Init(egg *EggCharacter) {
 	engine.InteractiveCharacterFactory{
 		GunnerCharacterFactory: engine.GunnerCharacterFactory{
 			LivingCharacterFactory: engine.LivingCharacterFactory{
-				MaxLife: 3,
-				Life:    3,
+				MaxHealth: 3,
+				Health:    3,
 
 				CharacterFactory: engine.CharacterFactory{
 					IdleTexture:      textures.Egg,

@@ -19,6 +19,17 @@ var (
 	//go:embed stop-falling-egg-animation.png
 	stopFallingEggAnimation []byte
 
+	//go:embed grunt-closed.png
+	gruntClosed []byte
+	//go:embed grunt-low-damage.png
+	gruntLowDamage []byte
+	//go:embed grunt-medium-damage.png
+	gruntMediumDamage []byte
+	//go:embed grunt-high-damage.png
+	gruntHighDamage []byte
+	//go:embed grunt-walking-animation.png
+	gruntWalkingAnimation []byte
+
 	//go:embed magnum-item.png
 	magnumItem []byte
 	//go:embed magnum.png
